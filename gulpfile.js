@@ -1,12 +1,14 @@
 const gulp = require('gulp');
-const $ = require('gulp-load-plugins')({camelize: true});
 const browsersync = require('browser-sync');
+const $ = require('gulp-load-plugins')({camelize: true});
+const _ = require('lodash');
+const path = require('path');
 
 gulp.task('templates', function() {
   return gulp.src(['./src/views/**/*.pug', '!./src/views/**/_*.pug'])
     .pipe($.plumber())
-    .pipe($.data(require('./src/data/data.js')))
-    .pipe($.pug())
+    .pipe($.data(require('./src/data/index.js')))
+    .pipe($.pug({pretty: true}))
     .pipe(gulp.dest('./dist'))
     .pipe(browsersync.stream());
 });
