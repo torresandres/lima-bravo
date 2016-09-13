@@ -8,16 +8,9 @@ html(lang='en')
 		title= title
 
 		//- Stylesheets
-		for font in assets.fonts
-			link(
-				rel='stylesheet',
-				href='https://fonts.googleapis.com/css?family=' + font.family + ':' + font.weights
-			)
-
-		for href in assets.styles
-			link(rel='stylesheet', href=href)
-
-		link(rel='stylesheet', href='/assets/css/main.css')
+		link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Lato:300,400,700')
+		link(rel='stylesheet', href='/assets/css/vendor.css')
+		link(rel='stylesheet', href='/assets/css/styles.css')
 
 	body(class=section)
 
@@ -31,7 +24,5 @@ html(lang='en')
 		//- include ./components/layout/footer.jade
 
 		//- Scripts
-		for src in assets.scripts
-			script(src=src)
-
+		script(src='/assets/js/vendor.js')
 		script(src='/assets/js/main.js')

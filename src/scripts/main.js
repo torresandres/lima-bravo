@@ -1,3 +1,3 @@
 ((w, d) => {
-  console.log('Scripts are working fine');
+  new WOW().init();
 })(window, document)
