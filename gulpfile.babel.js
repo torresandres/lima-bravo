@@ -1,4 +1,4 @@
-const gulp = require('gulp');
+import gulp from 'gulp';
 const browsersync = require('browser-sync');
 const mainBowerFiles = require('main-bower-files');
 const $ = require('gulp-load-plugins')({camelize: true});
@@ -15,17 +15,17 @@ const destScripts = './dist/assets/js';
 const srcImages = './src/images/**.*{png,jpg,jpeg,gif,svg}';
 const destImages = './dist/assets/images';
 
-gulp.task('views', function() {
-  return gulp.src([srcViews, '!./src/views/**/_*.pug'])
+gulp.task('views', () =>
+  gulp.src([srcViews, '!./src/views/**/_*.pug'])
     .pipe($.plumber())
     .pipe($.data(require('./src/data/index.js')))
     .pipe($.pug({pretty: true}))
     .pipe(gulp.dest('./dist'))
-    .pipe(browsersync.stream());
-});
+    .pipe(browsersync.stream())
+);
 
-gulp.task('styles', function() {
-  return gulp.src([srcStyles])
+gulp.task('styles', () =>
+  gulp.src([srcStyles])
     .pipe($.sourcemaps.init())
     .pipe($.plumber())
     .pipe($.sassLint(sassLintOptions))
@@ -36,19 +36,19 @@ gulp.task('styles', function() {
     .pipe($.cleanCss(cleanCssOptions))
     .pipe($.sourcemaps.write())
     .pipe(gulp.dest(destStyles))
-    .pipe(browsersync.stream());
-});
+    .pipe(browsersync.stream())
+);
 
-gulp.task('styles:bower', function() {
-  return gulp.src(mainBowerFiles({filter: '**/*.css'}))
+gulp.task('styles:bower', () =>
+  gulp.src(mainBowerFiles({filter: '**/*.css'}))
     .pipe($.concat('vendor.css'))
     .pipe($.cleanCss(cleanCssOptions))
     .pipe(gulp.dest(destStyles))
-    .pipe(browsersync.stream());
-});
+    .pipe(browsersync.stream())
+);
 
-gulp.task('scripts', function() {
-  return gulp.src([srcScripts])
+gulp.task('scripts', () =>
+  gulp.src([srcScripts])
     .pipe($.sourcemaps.init())
     .pipe($.plumber())
     .pipe($.babel({presets: ['es2015']}))
@@ -56,36 +56,32 @@ gulp.task('scripts', function() {
     .pipe($.concat('main.js'))
     .pipe($.sourcemaps.write())
     .pipe(gulp.dest(destScripts))
-    .pipe(browsersync.stream());
-});
+    .pipe(browsersync.stream())
+);
 
-gulp.task('scripts:bower', function() {
-  return gulp.src(mainBowerFiles({filter: '**/*.js'}))
+gulp.task('scripts:bower', () =>
+  gulp.src(mainBowerFiles({filter: '**/*.js'}))
     .pipe($.concat('vendor.js'))
     .pipe($.uglify())
     .pipe(gulp.dest(destScripts))
-    .pipe(browsersync.stream());
-});
+    .pipe(browsersync.stream())
+);
 
-gulp.task('images', function() {
-  return gulp.src(srcImages)
+gulp.task('images', () =>
+  gulp.src(srcImages)
     .pipe($.destClean(destImages))
     .pipe($.newer(destImages))
     .pipe($.imageminQuiet())
-    .pipe(gulp.dest(destImages));
-});
+    .pipe(gulp.dest(destImages))
+);
 
-gulp.task('watch', ['build'], function() {
-  browsersync.init({
-    server: {baseDir: './dist'}
-  });
-
+gulp.task('watch', ['build'], () => {
+  browsersync.init({server: {baseDir: './dist'}});
   gulp.watch([srcViews, './src/**/*.json'], ['views']);
   gulp.watch([srcImages], ['images', 'views']);
   gulp.watch([srcStyles], ['styles']);
   gulp.watch([srcScripts], ['scripts']);
   gulp.watch(['./dist/**/*.{html,js}']).on('change', browsersync.reload);
-
 });
 
 gulp.task('bower', ['styles:bower', 'scripts:bower']);
