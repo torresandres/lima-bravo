@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "dev": "gulp --gulpfile gulpfile.babel.js serve",
-    "build": "gulp --gulpfile gulpfile.babel.js build"
+    "build": "gulp --gulpfile gulpfile.babel.js build",
+    "deploy": "gulp --gulpfile gulpfile.babel.js deploy"
   },
   "repository": {
     "type": "git",
@@ -26,7 +27,9 @@
     "gulp-clean-css": "^2.0.12",
     "gulp-concat": "^2.6.0",
     "gulp-data": "^1.1.1",
+    "gulp-deploy-ftp": "0.0.2",
     "gulp-dest-clean": "^0.5.0",
+    "gulp-ftp": "^1.1.0",
     "gulp-imagemin-quiet": "^2.3.2",
     "gulp-load-plugins": "^1.2.4",
     "gulp-minify-css": "^1.2.4",
@@ -37,7 +40,9 @@
     "gulp-sass-lint": "^1.2.0",
     "gulp-sourcemaps": "^1.6.0",
     "gulp-uglify": "^2.0.0",
+    "gulp-util": "^3.0.7",
     "lodash": "^2.4.1",
-    "main-bower-files": "^2.13.1"
+    "main-bower-files": "^2.13.1",
+    "vinyl-ftp": "^0.5.0"
   }
 }

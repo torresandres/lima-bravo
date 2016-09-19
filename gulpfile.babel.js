@@ -1,6 +1,7 @@
 import gulp from 'gulp';
 const browsersync = require('browser-sync');
 const mainBowerFiles = require('main-bower-files');
+const ftp = require('vinyl-ftp');
 const $ = require('gulp-load-plugins')({camelize: true});
 
 const sassLintOptions = {options: {configFile: './.sass-lint.yml'}};
@@ -82,6 +83,21 @@ gulp.task('watch', ['build'], () => {
   gulp.watch([srcStyles], ['styles']);
   gulp.watch([srcScripts], ['scripts']);
   gulp.watch(['./dist/**/*.{html,js}']).on('change', browsersync.reload);
+});
+
+gulp.task('deploy', ['build'], () => {
+  require('dotenv').config();
+  const conn = ftp.create({
+    host: process.env.FTP_HOST,
+    user: process.env.FTP_USER,
+    password: process.env.FTP_PASS,
+    parallel: 10,
+    log: $.util.log
+  });
+
+  return gulp.src('./dist/**/*', {buffer: false})
+    .pipe(conn.newer('/'))
+    .pipe(conn.dest('/'));
 });
 
 gulp.task('bower', ['styles:bower', 'scripts:bower']);
