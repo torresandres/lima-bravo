@@ -1,8 +1,10 @@
 import gulp from 'gulp';
-const browsersync = require('browser-sync');
-const mainBowerFiles = require('main-bower-files');
-const ftp = require('vinyl-ftp');
-const $ = require('gulp-load-plugins')({camelize: true});
+import browsersync from 'browser-sync';
+import mainBowerFiles from 'main-bower-files';
+import ftp from 'vinyl-ftp';
+import gulpLoadPlugins from 'gulp-load-plugins';
+
+const $ = gulpLoadPlugins({camelize: true});
 
 const sassLintOptions = {options: {configFile: './.sass-lint.yml'}};
 const autoprefixerOptions = {browsers: ['last 2 versions'], cascade: false};
